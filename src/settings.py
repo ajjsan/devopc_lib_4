@@ -4,9 +4,11 @@ from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from sqlalchemy.engine.url import URL
 
+from .vault_env import apply_vault_secrets_to_environ
+
 
 class Settings(BaseSettings):
-    """Все секреты и пароли — только из переменных окружения / .env (не хранить в коде)."""
+    """Секреты: из переменных окружения / .env или (при USE_VAULT) из HashiCorp Vault до первого чтения."""
 
     model_config = SettingsConfigDict(
         env_file=".env",
@@ -60,3 +62,6 @@ class Settings(BaseSettings):
 @lru_cache(maxsize=1)
 def get_settings() -> Settings:
     return Settings()
+
+
+apply_vault_secrets_to_environ()

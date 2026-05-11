@@ -103,6 +103,10 @@ celerybeat.pid
 
 # Environments
 .env
+
+# ЛР3: локальные оверрайды для Vault / compose (не коммитить реальные токены)
+.env.vault.local
+vault/credentials.local
 .venv
 env/
 venv/
@@ -134,3 +138,6 @@ data/train_split.csv
 data/val_split.csv
 experiments/submission.csv
 .dvc/tmp/
+
+.env.example
+.env.example

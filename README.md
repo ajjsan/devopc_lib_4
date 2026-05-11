@@ -2,6 +2,11 @@
 ## Лабораторная работа №2 
 - Выполнил: Хабибуллин Айсан
 
+## Лабораторная работа №3 (Vault)
+- В `docker-compose.yml` добавлены сервисы **HashiCorp Vault** (режим `-dev`) и одноразовый **vault-init** (образ собирается из `docker/vault-init/Dockerfile`, в образ попадают только скрипты).
+- Сервис **vault-init** записывает в KV v2 (`secret/<VAULT_KV_PATH>`) учётные данные PostgreSQL, JWT и API; контейнер **api** с `USE_VAULT=true` забирает их через `hvac` при старте (до подключения к БД).
+- Для БД по-прежнему нужен `.env` с `POSTGRES_*` (инициализация тома Postgres). Корневой токен dev и путь KV см. `.env.example`.
+
 ## Ссылки
 - github: https://github.com/ajjsan/devopc_lib_2
 - dockerhub: https://hub.docker.com/repository/docker/ajjsan/dev_ops_hm2

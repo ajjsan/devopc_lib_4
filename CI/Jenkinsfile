@@ -8,7 +8,7 @@ pipeline {
 
     parameters {
         string(name: 'DOCKER_NAMESPACE', defaultValue: 'ajjsan', description: 'Docker Hub namespace/user')
-        string(name: 'IMAGE_NAME', defaultValue: 'mle-template-api', description: 'Имя репозитория образа на Docker Hub')
+        string(name: 'IMAGE_NAME', defaultValue: 'devops_hw_3', description: 'Имя репозитория образа на Docker Hub')
         string(name: 'DOCKER_REGISTRY', defaultValue: 'docker.io', description: 'Реестр (обычно docker.io)')
         string(name: 'CD_JOB', defaultValue: 'CD job', description: 'Имя CD job в Jenkins (например folder/cd-mle-api). Пусто = не запускать')
     }

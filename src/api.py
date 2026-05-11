@@ -64,7 +64,7 @@ app = FastAPI(
     description=(
         "Классификация тональности (TF-IDF + LogisticRegression). "
         "**Swagger:** нажми **Authorize**, выбери OAuth2 Password, укажи `username` и `password` "
-        "как в `.env` (`API_USERNAME`, `API_PASSWORD`). После входа заголовок `Authorization` "
+        "как в `.env` или из Vault при `USE_VAULT=true` (`API_USERNAME`, `API_PASSWORD`). После входа заголовок `Authorization` "
         "подставится сам для `/predict` и `/predict-batch`. "
         "Поле **client_id** можно оставить пустым."
     ),
@@ -94,7 +94,7 @@ def root():
     return {
         "message": "Twitter Sentiment API is running",
         "auth": {
-            "swagger": "GET /docs → Authorize → OAuth2 Password: username/password из .env (API_USERNAME, API_PASSWORD)",
+            "swagger": "GET /docs → Authorize → OAuth2 Password: username/password из .env или Vault (API_USERNAME, API_PASSWORD)",
             "curl": "POST /auth/token + заголовок Authorization: Bearer <access_token> для /predict",
         },
     }
