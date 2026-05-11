@@ -12,6 +12,7 @@ from sqlalchemy.orm import Session
 from . import auth
 from .database import get_db, init_db
 from .db_models import PredictionRecord
+from .kafka_publish import publish_prediction_result
 
 CONFIG_PATH = os.path.join(os.getcwd(), "config.ini")
 
@@ -149,6 +150,15 @@ def predict_sentiment(
     db.add(row)
     db.commit()
     db.refresh(row)
+    publish_prediction_result(
+        {
+            "kind": "single",
+            "prediction_id": row.id,
+            "sentiment": sentiment,
+            "label": label,
+            "text": text,
+        }
+    )
     return PredictResponse(sentiment=sentiment, label=label, prediction_id=row.id)
 
 
@@ -169,6 +179,7 @@ def predict_batch(
 
     sentiments = model.predict(cleaned_texts)
     predictions: list[PredictResponse] = []
+    kafka_payloads: list[dict] = []
     for idx, (text, sentiment_raw) in enumerate(zip(cleaned_texts, sentiments, strict=True)):
         sentiment = int(sentiment_raw)
         label = sentiment_to_label(sentiment)
@@ -181,5 +192,17 @@ def predict_batch(
         db.add(row)
         db.flush()
         predictions.append(PredictResponse(sentiment=sentiment, label=label, prediction_id=row.id))
+        kafka_payloads.append(
+            {
+                "kind": "batch",
+                "prediction_id": row.id,
+                "batch_index": idx,
+                "sentiment": sentiment,
+                "label": label,
+                "text": text,
+            }
+        )
     db.commit()
+    for payload in kafka_payloads:
+        publish_prediction_result(payload)
     return PredictBatchResponse(predictions=predictions)

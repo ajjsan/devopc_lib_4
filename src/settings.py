@@ -31,6 +31,9 @@ class Settings(BaseSettings):
     api_username: str = Field(validation_alias="API_USERNAME")
     api_password: str = Field(validation_alias="API_PASSWORD")
 
+    kafka_bootstrap_servers: str | None = Field(default=None, validation_alias="KAFKA_BOOTSTRAP_SERVERS")
+    kafka_topic: str | None = Field(default=None, validation_alias="KAFKA_TOPIC")
+
     def get_database_url(self) -> str:
         if self.database_url:
             return self.database_url

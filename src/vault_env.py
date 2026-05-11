@@ -39,6 +39,8 @@ def apply_vault_secrets_to_environ() -> None:
         "JWT_SECRET_KEY",
         "API_USERNAME",
         "API_PASSWORD",
+        "KAFKA_BOOTSTRAP_SERVERS",
+        "KAFKA_TOPIC",
     )
     for key in keys:
         if key not in data or data[key] is None:

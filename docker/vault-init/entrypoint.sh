@@ -25,6 +25,8 @@ vault kv put "secret/${PATH_KV}" \
   POSTGRES_DB="${POSTGRES_DB:?}" \
   JWT_SECRET_KEY="${JWT_SECRET_KEY:?}" \
   API_USERNAME="${API_USERNAME:?}" \
-  API_PASSWORD="${API_PASSWORD:?}"
+  API_PASSWORD="${API_PASSWORD:?}" \
+  KAFKA_BOOTSTRAP_SERVERS="${KAFKA_BOOTSTRAP_SERVERS:?}" \
+  KAFKA_TOPIC="${KAFKA_TOPIC:?}"
 
 echo "Готово: секреты записаны в Vault"
