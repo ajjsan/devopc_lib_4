@@ -4,6 +4,7 @@
 FROM hashicorp/vault:1.15
 
 COPY docker/vault-init/entrypoint.sh /usr/local/bin/vault-init-entrypoint.sh
-RUN chmod +x /usr/local/bin/vault-init-entrypoint.sh
+# Windows CRLF в шебанге даёт "no such file or directory" в Linux — убираем \r при сборке.
+RUN sed -i 's/\r$//' /usr/local/bin/vault-init-entrypoint.sh && chmod +x /usr/local/bin/vault-init-entrypoint.sh
 
 ENTRYPOINT ["/usr/local/bin/vault-init-entrypoint.sh"]

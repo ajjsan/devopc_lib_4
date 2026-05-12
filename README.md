@@ -6,7 +6,7 @@
 | Артефакт | Ссылка |
 |----------|--------|
 | GitHub (репозиторий проекта; при ЛР4 обычно форк после ЛР3) | https://github.com/ajjsan/devopc_lib_3 — **обнови на актуальный репозиторий ЛР4**, если создавал отдельный |
-| Docker Hub (образ API) | https://hub.docker.com/repository/docker/ajjsan/devops_hw_3 |
+| Docker Hub (образ API) | https://hub.docker.com/repository/docker/ajjsan/devops_hw_4 |
 
 
 ## Лабораторная работа №4
@@ -25,7 +25,7 @@
 |--------|------------|
 | **zookeeper** | `confluentinc/cp-zookeeper:7.5.0`, порт 2181. |
 | **kafka** | `confluentinc/cp-kafka:7.5.0`, hostname `kafka`; для контейнеров объявлен listener `PLAINTEXT://kafka:9092`; healthcheck `kafka-broker-api-versions`. |
-| **kafka-consumer** | тот же образ, что **api** (`devops_hw_3:latest`), `USE_VAULT=true`, чтение параметров Kafka из Vault, подписка на топик. |
+| **kafka-consumer** | тот же образ, что **api** (`devops_hw_4:latest`), `USE_VAULT=true`, чтение параметров Kafka из Vault, подписка на топик. |
 
 Сервис **api** ждёт готовности **kafka** (`condition: service_healthy`), чтобы Producer мог стабильно подключаться к брокеру.
 

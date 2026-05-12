@@ -61,16 +61,13 @@ services:
     depends_on:
       vault:
         condition: service_healthy
+    # Те же секреты, что в БД/API — из файла, без повторной подстановки compose (корректнее для @, %, $ в паролях)
+    env_file:
+      - .env
     environment:
       VAULT_ADDR: http://vault:8200
       VAULT_DEV_ROOT_TOKEN_ID: ${VAULT_DEV_ROOT_TOKEN_ID:-lab_dev_root}
       VAULT_KV_PATH: ${VAULT_KV_PATH:-ml-lab}
-      POSTGRES_USER: ${POSTGRES_USER:?Задай POSTGRES_USER в .env}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Задай POSTGRES_PASSWORD в .env}
-      POSTGRES_DB: ${POSTGRES_DB:?Задай POSTGRES_DB в .env}
-      JWT_SECRET_KEY: ${JWT_SECRET_KEY:?Задай JWT_SECRET_KEY в .env}
-      API_USERNAME: ${API_USERNAME:?Задай API_USERNAME в .env}
-      API_PASSWORD: ${API_PASSWORD:?Задай API_PASSWORD в .env}
       KAFKA_BOOTSTRAP_SERVERS: ${KAFKA_BOOTSTRAP_SERVERS:-kafka:9092}
       KAFKA_TOPIC: ${KAFKA_TOPIC:-sentiment-predictions}
     restart: "no"
@@ -96,7 +93,7 @@ services:
 
   api:
     build: .
-    image: devops_hw_3:latest
+    image: devops_hw_4:latest
     container_name: twitter-sentiment-api
     ports:
       - "8000:8000"
@@ -123,8 +120,8 @@ services:
     restart: unless-stopped
 
   kafka-consumer:
-    build: .
-    image: devops_hw_3:latest
+    # Тот же образ, что у api — без второго build, иначе параллельная сборка падает: image already exists
+    image: devops_hw_4:latest
     container_name: twitter-sentiment-kafka-consumer
     env_file:
       - .env

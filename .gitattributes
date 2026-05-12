@@ -1,0 +1,2 @@
+# Shell-скрипты только с LF (иначе в Linux: exec ... no such file or directory из-за CRLF в shebang).
+*.sh text eol=lf
