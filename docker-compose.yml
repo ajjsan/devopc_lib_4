@@ -61,7 +61,6 @@ services:
     depends_on:
       vault:
         condition: service_healthy
-    # Те же секреты, что в БД/API — из файла, без повторной подстановки compose (корректнее для @, %, $ в паролях)
     env_file:
       - .env
     environment:
