@@ -5,7 +5,7 @@
 
 | Артефакт | Ссылка |
 |----------|--------|
-| GitHub (репозиторий проекта; при ЛР4 обычно форк после ЛР3) | https://github.com/ajjsan/devopc_lib_3 — **обнови на актуальный репозиторий ЛР4**, если создавал отдельный |
+| GitHub (репозиторий проекта; при ЛР4 обычно форк после ЛР3) | https://github.com/ajjsan/devopc_lib_4
 | Docker Hub (образ API) | https://hub.docker.com/repository/docker/ajjsan/devops_hw_4 |
 
 
